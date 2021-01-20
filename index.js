@@ -122,7 +122,6 @@ const getOtherUsersInRoom = (socketID, roomID, role) => {
   for (let i = 0; i < len; i++) {
     if (users[roomID][i].id === socketID) continue;
 
-    console.log(users[roomID][i].role);
     if (role === "HOST") {
       allUsers.push({ id: users[roomID][i].id });
     } else if (role === "ATTENDANT") {
@@ -187,6 +186,8 @@ io.sockets.on("connection", (socket) => {
 
   socket.on("senderOffer", async (data) => {
     try {
+      console.log(data.roomID);
+
       socketToRoom[data.senderSocketID] = data.roomID;
       let pc = createReceiverPeerConnection(
         data.senderSocketID,
